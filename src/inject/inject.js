@@ -1,3 +1,7 @@
+console.log("SUP YO");
+console.log("SUP YO");
+console.log("SUP YO");
+console.log("SUP YO");
 chrome.extension.sendMessage({}, function(response) {
 	var readyStateCheckInterval = setInterval(function() {
 	if (document.readyState === "complete") {
