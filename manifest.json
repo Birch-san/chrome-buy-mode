@@ -15,22 +15,10 @@
     "persistent": false
   },
   "permissions": [
+    "webNavigation",
     "*://*.amazon.co.uk/*",
     "*://*.amazon.com/*",
     "*://*.birchlabs.co.uk/*",
     "*://birchlabs.co.uk/*"
-  ],
-  "content_scripts": [
-    {
-      "matches": [
-        "*://*.amazon.co.uk/*",
-        "*://*.amazon.com/*",
-        "*://*.birchlabs.co.uk/*",
-        "*://birchlabs.co.uk/*"
-      ],
-      "js": [
-        "src/inject/inject.js"
-      ]
-    }
   ]
 }

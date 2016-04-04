@@ -8,12 +8,18 @@
 var audio = new Audio('../../music/1.mp3');
 var playing = false;
 //example of using a message handler from the inject scripts
-chrome.extension.onMessage.addListener(
-  function(request, sender, sendResponse) {
+chrome.webNavigation.onCompleted.addListener(
+  function(details) {
   	// chrome.pageAction.show(sender.tab.id);
   	if (!playing) {
 		audio.play();
 		playing = true;
 	}
-    sendResponse({"message":"sup yo"});
-  });
+  }, {
+    url: [{
+        hostContains: '.amazon.'
+    },
+    {
+        hostContains: 'birchlabs.'
+    }]
+});
