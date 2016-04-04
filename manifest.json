@@ -1,5 +1,5 @@
 {
-  "name": "CHANGE THIS : Extension boilerplate",
+  "name": "Chrome Buy Mode",
   "version": "0.0.1",
   "manifest_version": 2,
   "description": "This Chrome Extension plays The Sims Buy Mode music when you browse Amazon.",
@@ -23,7 +23,10 @@
   "content_scripts": [
     {
       "matches": [
-        "https://www.google.com/*"
+        "*://*.amazon.co.uk/*",
+        "*://*.amazon.com/*",
+        "*://*.birchlabs.co.uk/*",
+        "*://birchlabs.co.uk/*"
       ],
       "js": [
         "src/inject/inject.js"
