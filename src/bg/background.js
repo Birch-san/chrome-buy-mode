@@ -4,17 +4,23 @@
 //     "sample_setting": "This is how you use Store.js to remember values"
 // });
 
+// var playlist = [
+// '../../music/1.mp3',
+// '../../music/2.mp3',
+// '../../music/3.mp3',
+// '../../music/4.mp3'
+// ];
 var playlist = [
-'../../music/1.mp3',
-'../../music/2.mp3',
-'../../music/3.mp3',
-'../../music/4.mp3'
+'../../music/a.mp3',
+'../../music/b.mp3',
+'../../music/c.mp3',
+'../../music/d.mp3'
 ];
 
-function pickRandomSong(currentSong) {
+function pickRandomSong() {
 	var candidates = [];
 	for (var i=0; i<playlist.length; i++) {
-		if (playlist[i] === currentSong) {
+		if (playlist[i] === audio.currentSrc) {
 			continue;
 		}
 		candidates.push(playlist[i]);
@@ -25,30 +31,47 @@ function pickRandomSong(currentSong) {
 	return candidates[Math.floor(Math.random() * candidates.length)];
 }
 
-function pickNextSong(currentSong) {
-	return pickRandomSong(currentSong);
+function pickNextSong() {
+	return pickRandomSong();
 }
 
 function cue(song) {
-	audio.load(song);
-	audio.addEventListener('ended', function() {
-		cue(pickNextSong(song));
-	});
+	audio.src = song;
+	audio.load();
 }
 
 var audio = new Audio();
+// audio.load('../../music/a.mp3')
 // currently I want first to be non-random
 var currentSong = playlist[0];
 cue(currentSong);
+audio.addEventListener('ended', function() {	
+	cue(pickNextSong());
+});
 
 function ensurePlaying() {
 	if (audio.paused) {
+		audio.autoplay = true;
 		audio.play();
 	}
+	// function deferredPlay() {
+	// 	if (audio.paused) {
+	// 		audio.play();
+	// 	}
+	// }
+
+	// if (audio.readyState === 4) {
+	// 	deferredPlay();
+	// } else {
+	// 	audio.addEventListener('canplay', function() {
+	// 		deferredPlay();
+	// 	});
+	// }
 }
 
 function ensureNotPlaying() {
 	if (!audio.paused) {
+		audio.autoplay = false;
 		audio.pause();
 	}
 }
