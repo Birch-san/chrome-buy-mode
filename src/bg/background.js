@@ -4,9 +4,42 @@
 //     "sample_setting": "This is how you use Store.js to remember values"
 // });
 
+var playlist = [
+'../../music/1.mp3',
+'../../music/2.mp3',
+'../../music/3.mp3',
+'../../music/4.mp3'
+];
 
-var audio = new Audio('../../music/1.mp3');
-audio.loop = true;
+function pickRandomSong(currentSong) {
+	var candidates = [];
+	for (var i=0; i<playlist.length; i++) {
+		if (playlist[i] === currentSong) {
+			continue;
+		}
+		candidates.push(playlist[i]);
+	}
+	if (candidates.length === 0 ) {
+		candidates = playlist;
+	}
+	return candidates[Math.floor(Math.random() * candidates.length)];
+}
+
+function pickNextSong(currentSong) {
+	return pickRandomSong(currentSong);
+}
+
+function cue(song) {
+	audio.load(song);
+	audio.addEventListener('ended', function() {
+		cue(pickNextSong(song));
+	});
+}
+
+var audio = new Audio();
+// currently I want first to be non-random
+var currentSong = playlist[0];
+cue(currentSong);
 
 function ensurePlaying() {
 	if (audio.paused) {
