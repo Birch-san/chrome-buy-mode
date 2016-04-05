@@ -41,10 +41,9 @@ function cue(song) {
 }
 
 var audio = new Audio();
-// audio.load('../../music/a.mp3')
-// currently I want first to be non-random
-var currentSong = playlist[0];
-cue(currentSong);
+var favouriteFirst = playlist[0];
+cue(favouriteFirst || pickNextSong());
+
 audio.addEventListener('ended', function() {	
 	cue(pickNextSong());
 });
