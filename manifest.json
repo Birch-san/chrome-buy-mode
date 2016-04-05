@@ -19,5 +19,6 @@
     "webNavigation",
     "http://*/*",
     "https://*/*"
-  ]
+  ],
+  "options_page": "src/options_custom/index.html"
 }
