@@ -15,6 +15,7 @@
     "persistent": false
   },
   "permissions": [
+    "tabs",
     "webNavigation",
     "*://*.amazon.co.uk/*",
     "*://*.amazon.com/*",
