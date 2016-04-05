@@ -4,17 +4,11 @@
 //     "sample_setting": "This is how you use Store.js to remember values"
 // });
 
-// var playlist = [
-// '../../music/1.mp3',
-// '../../music/2.mp3',
-// '../../music/3.mp3',
-// '../../music/4.mp3'
-// ];
 var playlist = [
-'../../music/a.mp3',
-'../../music/b.mp3',
-'../../music/c.mp3',
-'../../music/d.mp3'
+'../../music/1.mp3',
+'../../music/2.mp3',
+'../../music/3.mp3',
+'../../music/4.mp3'
 ];
 
 function pickRandomSong() {
@@ -53,19 +47,6 @@ function ensurePlaying() {
 		audio.autoplay = true;
 		audio.play();
 	}
-	// function deferredPlay() {
-	// 	if (audio.paused) {
-	// 		audio.play();
-	// 	}
-	// }
-
-	// if (audio.readyState === 4) {
-	// 	deferredPlay();
-	// } else {
-	// 	audio.addEventListener('canplay', function() {
-	// 		deferredPlay();
-	// 	});
-	// }
 }
 
 function ensureNotPlaying() {
@@ -74,13 +55,6 @@ function ensureNotPlaying() {
 		audio.pause();
 	}
 }
-
-// function stop() {
-// 	if (!playing) {
-// 		audio.play();
-// 		playing = true;
-// 	}
-// }
 
 //example of using a message handler from the inject scripts
 chrome.webNavigation.onCompleted.addListener(
@@ -99,6 +73,7 @@ function ensureMusicPlayingIffRequired() {
 	var queryInfo = {
 		active: true,
 		currentWindow: true,
+		windowType: 'normal',
 		// status: 'complete',
 		url: [
 		"*://*.amazon.co.uk/*",
@@ -117,10 +92,6 @@ chrome.tabs.onRemoved.addListener(function(tabId, attachInfo) {
 chrome.windows.onFocusChanged.addListener(function(tabId, attachInfo) {
 	ensureMusicPlayingIffRequired();
 });
-
-// chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-// 	ensureMusicPlayingIffRequired();
-// });
 
 chrome.tabs.onActivated.addListener(function(activeInfo) {
 	//activeInfo
