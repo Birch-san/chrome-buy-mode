@@ -17,9 +17,6 @@
   "permissions": [
     "tabs",
     "webNavigation",
-    "*://*.amazon.co.uk/*",
-    "*://*.amazon.com/*",
-    "*://*.birchlabs.co.uk/*",
-    "*://birchlabs.co.uk/*"
+    "://*/*"
   ]
 }
