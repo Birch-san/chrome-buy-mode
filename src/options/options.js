@@ -9,8 +9,12 @@
 // }
 
 angular
-.module('optionsApp', ['controllers'])
-.module('controllers')
+.module('optionsApp', ['controllers']);
+
+var controllers = angular
+.module('controllers', []);
+
+controllers
 .controller('HtmlCtrl', ['$scope', function($scope) {
 	angular.extend($scope, {
 		lang: chrome.i18n.getMessage("@@ui_locale"),
@@ -19,6 +23,7 @@ angular
 		}
 	});
 }])
+controllers
 .controller('OptionsCtrl', ['$scope', function($scope) {
 	function toObj() {
 		return {
@@ -32,9 +37,11 @@ angular
 		}
 	});
 }])
+controllers
 .controller('RulesCtrl', ['$scope', function($scope) {
 
 }])
+controllers
 .controller('RuleCtrl', ['$scope', function($scope) {
 
 }]);
