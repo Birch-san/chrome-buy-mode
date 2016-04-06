@@ -1,12 +1,3 @@
-// if (!chrome || !chrome.i18n) {
-// 	chrome = {
-// 		i18n: {
-// 			getMessage: function(key) {
-// 				return key;
-// 			}
-// 		}
-// 	}
-// }
 
 angular
 .module('optionsApp', [])
@@ -19,25 +10,50 @@ angular
 	});
 }])
 .controller('OptionsCtrl', ['$scope', function($scope) {
-	function toObj() {
-		return {
-			rules: []
-		};
-	}
+	chrome.storage.sync.get("state", function(result) {
+		var state;
+		try {
+			state = JSON.parse(result);
+		} catch(err) {
+		}
+		if (!state) {
+			state = {};
+		}
+		if (!state.rules || !state.rules.length) {
+			angular.extend(state, {
+				rules: [
+				{
+					"match": [
+				    "*://*.birchlabs.co.uk/*",
+				    "*://birchlabs.co.uk/*"
+					],
+					"playlist":
+					[
+					'../../music/elevator.mp3'
+					]
+				}
+				]
+			});
+		}
+
+		angular.extend($scope, {
+			loading: false,
+			state: state
+		});
+		$scope.$apply();
+	});
 
 	angular.extend($scope, {
+		loading: true,
+		state: {},
 		serialize: function() {
-			return JSON.stringify(toObj());
+			return JSON.stringify($scope.state, null, "  ");
 		}
 	});
 }])
 .controller('RulesCtrl', ['$scope', function($scope) {
-	angular.extend($scope, {
-		hey: true
-	});
+	
 }])
 .controller('RuleCtrl', ['$scope', function($scope) {
-	angular.extend($scope, {
-		hey: true
-	});
+	
 }]);
