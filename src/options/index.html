@@ -12,26 +12,46 @@
 		<script type="text/javascript" src="options.js"></script>
 	</head>
 	<body>
-		<div ng-controller="OptionsCtrl">
+		<div ng-controller="OptionsCtrl" ng-submit="submit(theForm.$invalid)">
 			<h1 ng-bind="::localized('productOptions')"></h1>
 			<div ng-if="loading">
 				<span ng-bind="::localized('loading')"></span><span>...</span>
 			</div>
-			<div ng-if="!loading" ng-controller="RulesCtrl">
+			<form name="theForm" ng-if="!loading" ng-controller="RulesCtrl" novalidate>
 				<h2 class="capitalize" ng-bind="::localized('rules')"></h2>
 				<div ng-repeat="rule in state.rules track by $index">
-					<h3>
-						<span class="capitalize" ng-bind="::localized('rule')"></span>
-						<span ng-bind="$index+1"></span>
-					</h3>
-					<label class="capitalize" ng-bind="::localized('playlist')"></label>
-					<div ng-repeat="match in rule.match track by $index">
-						<input ng-value="match"></input>
-					</div>
-					<a ng-click="addMatch($event, rule)" ng-bind="::localized('addMatch')" href="javascript:void()"></a>
+					<fieldset>
+						<h3>
+							<span class="capitalize" ng-bind="::localized('rule')"></span>
+							<span ng-bind="$index+1"></span>
+						</h3>
+						<label class="capitalize" ng-bind="::localized('matches')"></label>
+						<div ng-repeat="match in rule.match track by $index">
+							<input ng-value="match"></input>
+						</div>
+						<!-- <div>&nbsp;</div> -->
+						<a class="capitalize" ng-click="addMatch($event, rule)" ng-bind="::localized('addMatch')" href="javascript:void()"></a>
+						<div>&nbsp;</div>
+						<label class="capitalize" ng-bind="::localized('playlist')"></label>
+						<div ng-repeat="song in rule.playlist track by $index">
+							<input ng-value="song"></input>
+						</div>
+						<!-- <div>&nbsp;</div> -->
+						<a class="capitalize" ng-click="addSong($event, rule)" ng-bind="::localized('addSong')" href="javascript:void()"></a>
+					</fieldset>
+					<!-- <hr ng-show="!$last"></hr> -->
 				</div>
-				<a ng-click="addRule($event)" ng-bind="::localized('addRule')" href="javascript:void()">Add</a>
-			</div>
+				<div>&nbsp;</div>
+				<a class="capitalize" ng-click="addRule($event)" ng-bind="::localized('addRule')" href="javascript:void()"></a>
+				<hr></hr>
+				<!-- <div>&nbsp;</div> -->
+				<input type="submit" class="capitalize" ng-value="::localized('submit')" ng-disabled="saving || theForm.$invalid"></input>
+				<div ng-show="saving">
+					<div>&nbsp;</div>
+					<span class="capitalize" ng-bind="::localized('saving')"></span><span>...</span>
+				</div>
+			</form>
+			<div>&nbsp;</div>
 			<pre ng-bind="serialize()"></pre>
 		</div>
 	</body>

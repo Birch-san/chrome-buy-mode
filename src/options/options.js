@@ -45,6 +45,7 @@ angular
 
 	angular.extend($scope, {
 		loading: true,
+		saving: false,
 		state: {},
 		serialize: function() {
 			return JSON.stringify($scope.state, null, "  ");
@@ -54,15 +55,36 @@ angular
 			$event.stopPropagation();
 			rule.match.push("");
 		},
+		addSong: function($event, rule) {
+			$event.preventDefault();
+			$event.stopPropagation();
+			rule.playlist.push("");
+		},
 		addRule: function($event) {
 			$event.preventDefault();
 			$event.stopPropagation();
 			$scope.state.rules.push({
 				match: [
-				"*://*.google.com/*"
+				"*://*.google.com/*",
+				"*://google.com/*"
 				],
 				playlist: []
 			});
+		},
+		submit: function($invalid) {
+			if ($invalid) {
+				return;
+			}
+
+			angular.extend($scope, {
+				saving: true
+			});
+			setTimeout(function() {
+				angular.extend($scope, {
+					saving: false
+				});
+				$scope.$apply();
+			}, 1500);
 		}
 	});
 }])

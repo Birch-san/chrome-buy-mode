@@ -14,16 +14,28 @@
   "rule": {
     "message": "rule"
   },
+  "matches": {
+    "message": "URL patterns upon which to match"
+  },
   "playlist": {
     "message": "playlist"
+  },
+  "addSong": {
+    "message": "add song"
   },
   "loading": {
     "message": "loading"
   },
   "addMatch": {
-    "message": "addMatch"
+    "message": "add match"
   },
   "addRule": {
-    "message": "addRule"
+    "message": "add rule"
+  },
+  "submit": {
+    "message": "save changes"
+  },
+  "saving": {
+    "message": "saving"
   }
 }
