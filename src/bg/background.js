@@ -4,17 +4,31 @@
 //     "sample_setting": "This is how you use Store.js to remember values"
 // });
 
-var playlist = [
-'file:///Users/birch/git/chrome-buy-mode/music/1.mp3',
-'file:///Users/birch/git/chrome-buy-mode/music/2.mp3',
-'file:///Users/birch/git/chrome-buy-mode/music/3.mp3',
-'file:///Users/birch/git/chrome-buy-mode/music/4.mp3'
+var rules = [
+{
+	"match": [
+	"*://*.amazon.co.uk/*",
+    "*://*.amazon.com/*",
+    "*://*.birchlabs.co.uk/*",
+    "*://birchlabs.co.uk/*"
+	],
+	"playlist":
+	[
+	'file:///Users/birch/git/chrome-buy-mode/music/1.mp3',
+	'file:///Users/birch/git/chrome-buy-mode/music/2.mp3',
+	'file:///Users/birch/git/chrome-buy-mode/music/3.mp3',
+	'file:///Users/birch/git/chrome-buy-mode/music/4.mp3'
+	],
+	"audio": undefined,
+	"favouriteFirst": true
+}
 ];
 
-function pickRandomSong() {
+function pickRandomSong(rule) {
 	var candidates = [];
+	var playlist = rule.playlist;
 	for (var i=0; i<playlist.length; i++) {
-		if (playlist[i] === audio.currentSrc) {
+		if (playlist[i] === rule.audio.currentSrc) {
 			continue;
 		}
 		candidates.push(playlist[i]);
@@ -25,31 +39,36 @@ function pickRandomSong() {
 	return candidates[Math.floor(Math.random() * candidates.length)];
 }
 
-function pickNextSong() {
-	return pickRandomSong();
+function pickNextSong(rule) {
+	return pickRandomSong(rule);
 }
 
-function cue(song) {
+function cue(audio, song) {
 	audio.src = song;
 	audio.load();
 }
 
-var audio = new Audio();
-var favouriteFirst = playlist[0];
-cue(favouriteFirst || pickNextSong());
+(function initRules(rules) {
+	for (var i=0; i<rules.length; i++) {
+		var rule = rules[i];
+		rule.audio = new Audio();
+		var audio = rule.audio;
+		cue(audio, (rule.favouriteFirst && rule.playlist[0]) || pickNextSong(rule));
 
-audio.addEventListener('ended', function() {	
-	cue(pickNextSong());
-});
+		audio.addEventListener('ended', function() {	
+			cue(pickNextSong());
+		});
+	}
+})(rules);
 
-function ensurePlaying() {
+function ensurePlaying(audio) {
 	if (audio.paused) {
 		audio.autoplay = true;
 		audio.play();
 	}
 }
 
-function ensureNotPlaying() {
+function ensureNotPlaying(audio) {
 	if (!audio.paused) {
 		audio.autoplay = false;
 		audio.pause();
@@ -63,26 +82,25 @@ chrome.webNavigation.onCompleted.addListener(
   });
 
 function ensureMusicPlayingIffRequired() {
-	function callback(tabs) {
-		if (tabs.length > 0) {
-			ensurePlaying();
-		} else {
-			ensureNotPlaying();
+	for (var i=0; i<rules.length; i++) {
+		var rule = rules[i];
+		function callback(tabs) {
+			if (tabs.length > 0) {
+				ensurePlaying(rule.audio);
+			} else {
+				ensureNotPlaying(rule.audio);
+			}
 		}
+
+		var queryInfo = {
+			active: true,
+			currentWindow: true,
+			windowType: 'normal',
+			// status: 'complete',
+			url: rule.match
+		};
+		chrome.tabs.query(queryInfo, callback);
 	}
-	var queryInfo = {
-		active: true,
-		currentWindow: true,
-		windowType: 'normal',
-		// status: 'complete',
-		url: [
-		"*://*.amazon.co.uk/*",
-	    "*://*.amazon.com/*",
-	    "*://*.birchlabs.co.uk/*",
-	    "*://birchlabs.co.uk/*"
-		]
-	};
-	chrome.tabs.query(queryInfo, callback);
 }
 
 chrome.tabs.onRemoved.addListener(function(tabId, attachInfo) {
