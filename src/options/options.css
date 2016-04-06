@@ -2,6 +2,22 @@
 	text-transform: capitalize;
 }
 
+.float-left {
+	float: left;
+}
+
+.clear-both {
+	clear: both;	
+}
+
 .float-right {
 	float: right;
+}
+
+.path-input {
+	width: 225px;
+}
+
+.header-hyper {
+	font-size: calc(1em / 1.2);
 }
