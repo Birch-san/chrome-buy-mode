@@ -5,10 +5,10 @@
 // });
 
 var playlist = [
-'../../music/1.mp3',
-'../../music/2.mp3',
-'../../music/3.mp3',
-'../../music/4.mp3'
+'file:///Users/birch/git/chrome-buy-mode/music/1.mp3',
+'file:///Users/birch/git/chrome-buy-mode/music/2.mp3',
+'file:///Users/birch/git/chrome-buy-mode/music/3.mp3',
+'file:///Users/birch/git/chrome-buy-mode/music/4.mp3'
 ];
 
 function pickRandomSong() {
