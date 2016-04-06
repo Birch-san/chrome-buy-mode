@@ -4,7 +4,7 @@
 //     "sample_setting": "This is how you use Store.js to remember values"
 // });
 
-var rules;
+var state;
 
 function pickRandomSong(rule) {
 	var candidates = [];
@@ -51,8 +51,8 @@ chrome.webNavigation.onCompleted.addListener(
   });
 
 function ensureMusicPlayingIffRequired() {
-	for (var i=0; i<rules.length; i++) {
-		var rule = rules[i];
+	for (var i=0; i<state.rules.length; i++) {
+		var rule = state.rules[i];
 		function callback(tabs) {
 			if (tabs.length > 0) {
 				ensurePlaying(rule.audio);
@@ -72,13 +72,16 @@ function ensureMusicPlayingIffRequired() {
 	}
 }
 
-chrome.storage.sync.get("rules", function(result) {
+chrome.storage.sync.get("state", function(result) {
 	try {
-		rules = JSON.parse(result);
+		state = JSON.parse(result);
 	} catch(err) {
 	}
-	if (!rules || !rules.length) {
-		rules = 
+	if (!state) {
+		state = {};
+	}
+	if (!state.rules || !state.rules.length) {
+		state.rules = 
 		[
 		{
 			"match": [
@@ -121,7 +124,7 @@ chrome.storage.sync.get("rules", function(result) {
 			cue(pickNextSong());
 		});
 	}
-	})(rules);
+	})(state.rules);
 
 	chrome.tabs.onRemoved.addListener(function(tabId, attachInfo) {
 		ensureMusicPlayingIffRequired();

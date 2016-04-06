@@ -8,15 +8,23 @@
 		<meta name="author" content="Alex Birch">
 		<title ng-bind="::localized('productTitle')"></title>
 		<script type="text/javascript" src="../lib/angular.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="options.css">
 		<script type="text/javascript" src="options.js"></script>
 	</head>
 	<body>
-		<main>
-			<section>
-				<h1 ng-bind="::localized('productOptions')"/>
-				<h2 ng-bind="::localized('playlists')"/>
-				<p ng-bind="::localized('sup')"/>
-			</section>
-		</main>
+		<div ng-controller="OptionsCtrl">
+			<h1 ng-bind="::localized('productOptions')"/>
+			<div ng-controller="RulesCtrl">
+				<h2 class="capitalize" ng-bind="::localized('rules')"/>
+				<div ng-controller="RuleCtrl">
+					<h3>
+						<span class="capitalize" ng-bind="::localized('rule')"/><span>1</span>
+					</h3>
+					<label class="capitalize" ng-bind="::localized('playlist')">
+				</div>
+			</div>
+			<!-- <p ng-bind="::localized('sup')"/> -->
+			<pre ng-bind="serialize()"/>
+		</div>
 	</body>
 </html>	
