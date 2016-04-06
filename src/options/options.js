@@ -9,12 +9,7 @@
 // }
 
 angular
-.module('optionsApp', ['controllers']);
-
-var controllers = angular
-.module('controllers', []);
-
-controllers
+.module('optionsApp', [])
 .controller('HtmlCtrl', ['$scope', function($scope) {
 	angular.extend($scope, {
 		lang: chrome.i18n.getMessage("@@ui_locale"),
@@ -23,7 +18,6 @@ controllers
 		}
 	});
 }])
-controllers
 .controller('OptionsCtrl', ['$scope', function($scope) {
 	function toObj() {
 		return {
@@ -37,11 +31,13 @@ controllers
 		}
 	});
 }])
-controllers
 .controller('RulesCtrl', ['$scope', function($scope) {
-
+	angular.extend($scope, {
+		hey: true
+	});
 }])
-controllers
 .controller('RuleCtrl', ['$scope', function($scope) {
-
+	angular.extend($scope, {
+		hey: true
+	});
 }]);
