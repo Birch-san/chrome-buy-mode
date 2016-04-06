@@ -19,5 +19,11 @@
   },
   "loading": {
     "message": "loading"
+  },
+  "addMatch": {
+    "message": "addMatch"
+  },
+  "addRule": {
+    "message": "addRule"
   }
 }

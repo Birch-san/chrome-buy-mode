@@ -48,12 +48,24 @@ angular
 		state: {},
 		serialize: function() {
 			return JSON.stringify($scope.state, null, "  ");
+		},
+		addMatch: function($event, rule) {
+			$event.preventDefault();
+			$event.stopPropagation();
+			rule.match.push("");
+		},
+		addRule: function($event) {
+			$event.preventDefault();
+			$event.stopPropagation();
+			$scope.state.rules.push({
+				match: [
+				"*://*.google.com/*"
+				],
+				playlist: []
+			});
 		}
 	});
 }])
 .controller('RulesCtrl', ['$scope', function($scope) {
-	
-}])
-.controller('RuleCtrl', ['$scope', function($scope) {
 	
 }]);
