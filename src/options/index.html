@@ -17,7 +17,7 @@
 			<div ng-if="loading">
 				<span ng-bind="::localized('loading')"></span><span>...</span>
 			</div>
-			<form name="theForm" ng-if="!loading" ng-controller="RulesCtrl" novalidate>
+			<form name="theForm" ng-if="!loading" novalidate>
 				<h2 class="capitalize" ng-bind="::localized('rules')"></h2>
 				<div ng-repeat="rule in state.rules track by $index">
 					<fieldset>
@@ -29,7 +29,7 @@
 						<div class="clear-both"></div>
 						<label class="capitalize" ng-bind="::localized('matches')"></label>
 						<div ng-repeat="match in rule.match track by $index">
-							<input class="path-input" ng-model="rule.match[$index]"></input>
+							<input class="path-input" ng-model="rule.match[$index]" required></input>
 							<a class="capitalize" ng-click="deleteMatch($event, rule, $index)" ng-bind="::localized('deleteMatch')" href="javascript:void()"></a>
 						</div>
 						<!-- <div>&nbsp;</div> -->
@@ -39,7 +39,7 @@
 						<div>&nbsp;</div>
 						<label class="capitalize" ng-bind="::localized('playlist')"></label>
 						<div ng-repeat="song in rule.playlist track by $index">
-							<input class="path-input" ng-model="rule.playlist[$index]"></input>
+							<input type="text" class="path-input" ng-model="rule.playlist[$index]" required></input>
 							<a class="capitalize" ng-click="deleteSong($event, rule, $index)" ng-bind="::localized('deleteSong')" href="javascript:void()"></a>
 						</div>
 						<!-- <div>&nbsp;</div> -->

@@ -72,9 +72,9 @@ function ensureMusicPlayingIffRequired() {
 	}
 }
 
-chrome.storage.sync.get("state", function(result) {
+chrome.storage.sync.get("state", function(items) {
 	try {
-		state = JSON.parse(result);
+		state = JSON.parse(items.state);
 	} catch(err) {
 	}
 	if (!state) {

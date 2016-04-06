@@ -10,10 +10,10 @@ angular
 	});
 }])
 .controller('OptionsCtrl', ['$scope', function($scope) {
-	chrome.storage.sync.get("state", function(result) {
+	chrome.storage.sync.get("state", function(items) {
 		var state;
 		try {
-			state = JSON.parse(result);
+			state = JSON.parse(items.state);
 		} catch(err) {
 		}
 		if (!state) {
@@ -96,15 +96,15 @@ angular
 			angular.extend($scope, {
 				saving: true
 			});
-			setTimeout(function() {
+
+			chrome.storage.sync.set({
+				'state': JSON.stringify($scope.state)
+			}, function() {
 				angular.extend($scope, {
 					saving: false
 				});
 				$scope.$apply();
-			}, 1500);
+			})
 		}
 	});
-}])
-.controller('RulesCtrl', ['$scope', function($scope) {
-	
 }]);
