@@ -16,5 +16,8 @@
   },
   "playlist": {
     "message": "playlist"
+  },
+  "loading": {
+    "message": "loading"
   }
 }
