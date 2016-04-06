@@ -4,25 +4,7 @@
 //     "sample_setting": "This is how you use Store.js to remember values"
 // });
 
-var rules = [
-{
-	"match": [
-	"*://*.amazon.co.uk/*",
-    "*://*.amazon.com/*",
-    "*://*.birchlabs.co.uk/*",
-    "*://birchlabs.co.uk/*"
-	],
-	"playlist":
-	[
-	'file:///Users/birch/git/chrome-buy-mode/music/1.mp3',
-	'file:///Users/birch/git/chrome-buy-mode/music/2.mp3',
-	'file:///Users/birch/git/chrome-buy-mode/music/3.mp3',
-	'file:///Users/birch/git/chrome-buy-mode/music/4.mp3'
-	],
-	"audio": undefined,
-	"favouriteFirst": true
-}
-];
+var rules;
 
 function pickRandomSong(rule) {
 	var candidates = [];
@@ -47,19 +29,6 @@ function cue(audio, song) {
 	audio.src = song;
 	audio.load();
 }
-
-(function initRules(rules) {
-	for (var i=0; i<rules.length; i++) {
-		var rule = rules[i];
-		rule.audio = new Audio();
-		var audio = rule.audio;
-		cue(audio, (rule.favouriteFirst && rule.playlist[0]) || pickNextSong(rule));
-
-		audio.addEventListener('ended', function() {	
-			cue(pickNextSong());
-		});
-	}
-})(rules);
 
 function ensurePlaying(audio) {
 	if (audio.paused) {
@@ -103,18 +72,70 @@ function ensureMusicPlayingIffRequired() {
 	}
 }
 
-chrome.tabs.onRemoved.addListener(function(tabId, attachInfo) {
-	ensureMusicPlayingIffRequired();
-});
+chrome.storage.sync.get("rules", function(result) {
+	try {
+		rules = JSON.parse(result);
+	} catch(err) {
+	}
+	if (!rules || !rules.length) {
+		rules = 
+		[
+		{
+			"match": [
+		    "*://*.birchlabs.co.uk/*",
+		    "*://birchlabs.co.uk/*"
+			],
+			"playlist":
+			[
+			'../../music/elevator.mp3'
+			]
+		}
+		];
+		// {
+		// 	"match": [
+		// 	"*://*.amazon.co.uk/*",
+		//     "*://*.amazon.com/*",
+		//     "*://*.birchlabs.co.uk/*",
+		//     "*://birchlabs.co.uk/*"
+		// 	],
+		// 	"playlist":
+		// 	[
+		// 	'file:///Users/birch/git/chrome-buy-mode/music/1.mp3',
+		// 	'file:///Users/birch/git/chrome-buy-mode/music/2.mp3',
+		// 	'file:///Users/birch/git/chrome-buy-mode/music/3.mp3',
+		// 	'file:///Users/birch/git/chrome-buy-mode/music/4.mp3'
+		// 	],
+		// 	"audio": undefined,
+		// 	"favouriteFirst": true
+		// }
+	}
 
-chrome.windows.onFocusChanged.addListener(function(tabId, attachInfo) {
-	ensureMusicPlayingIffRequired();
-});
+	(function initRules(rules) {
+	for (var i=0; i<rules.length; i++) {
+		var rule = rules[i];
+		rule.audio = new Audio();
+		var audio = rule.audio;
+		cue(audio, (rule.favouriteFirst && rule.playlist[0]) || pickNextSong(rule));
 
-chrome.tabs.onActivated.addListener(function(activeInfo) {
-	//activeInfo
-	// int tabId The ID of the tab that has become active
-	// int windowId The ID of the window the active tab changed inside of.
+		audio.addEventListener('ended', function() {	
+			cue(pickNextSong());
+		});
+	}
+	})(rules);
 
-	ensureMusicPlayingIffRequired();
-});
+	chrome.tabs.onRemoved.addListener(function(tabId, attachInfo) {
+		ensureMusicPlayingIffRequired();
+	});
+
+	chrome.windows.onFocusChanged.addListener(function(tabId, attachInfo) {
+		ensureMusicPlayingIffRequired();
+	});
+
+	chrome.tabs.onActivated.addListener(function(activeInfo) {
+		//activeInfo
+		// int tabId The ID of the tab that has become active
+		// int windowId The ID of the window the active tab changed inside of.
+
+		ensureMusicPlayingIffRequired();
+	});
+})
