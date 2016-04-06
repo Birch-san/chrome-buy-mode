@@ -24,20 +24,27 @@
 						<h3>
 							<span class="capitalize" ng-bind="::localized('rule')"></span>
 							<span ng-bind="$index+1"></span>
+							<a class="float-right capitalize" ng-click="deleteRule($event, $index)" ng-bind="::localized('deleteRule')" href="javascript:void()"></a>
 						</h3>
 						<label class="capitalize" ng-bind="::localized('matches')"></label>
 						<div ng-repeat="match in rule.match track by $index">
 							<input ng-model="rule.match[$index]"></input>
+							<a class="capitalize" ng-click="deleteMatch($event, rule, $index)" ng-bind="::localized('deleteMatch')" href="javascript:void()"></a>
 						</div>
 						<!-- <div>&nbsp;</div> -->
-						<a class="capitalize" ng-click="addMatch($event, rule)" ng-bind="::localized('addMatch')" href="javascript:void()"></a>
+						<div>
+							<a class="capitalize" ng-click="addMatch($event, rule)" ng-bind="::localized('addMatch')" href="javascript:void()"></a>
+						</div>
 						<div>&nbsp;</div>
 						<label class="capitalize" ng-bind="::localized('playlist')"></label>
 						<div ng-repeat="song in rule.playlist track by $index">
 							<input ng-model="rule.playlist[$index]"></input>
+							<a class="capitalize" ng-click="deleteSong($event, rule, $index)" ng-bind="::localized('deleteSong')" href="javascript:void()"></a>
 						</div>
 						<!-- <div>&nbsp;</div> -->
-						<a class="capitalize" ng-click="addSong($event, rule)" ng-bind="::localized('addSong')" href="javascript:void()"></a>
+						<div>
+							<a class="capitalize" ng-click="addSong($event, rule)" ng-bind="::localized('addSong')" href="javascript:void()"></a>
+						</div>
 					</fieldset>
 					<!-- <hr ng-show="!$last"></hr> -->
 				</div>
@@ -52,6 +59,7 @@
 				</div>
 			</form>
 			<div>&nbsp;</div>
+			<label class="capitalize" ng-bind="::localized('helpfulPre')"></label><span>:</span>
 			<pre ng-bind="serialize()"></pre>
 		</div>
 	</body>

@@ -23,19 +23,31 @@
   "addSong": {
     "message": "add song"
   },
+  "deleteSong": {
+    "message": "delete song"
+  },
   "loading": {
     "message": "loading"
   },
   "addMatch": {
     "message": "add match"
   },
+  "deleteMatch": {
+    "message": "delete match"
+  },
   "addRule": {
     "message": "add rule"
+  },
+  "deleteRule": {
+    "message": "delete rule"
   },
   "submit": {
     "message": "save changes"
   },
   "saving": {
     "message": "saving"
+  },
+  "helpfulPre": {
+    "message": "helpful JSON representation"
   }
 }

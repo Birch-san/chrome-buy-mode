@@ -60,6 +60,21 @@ angular
 			$event.stopPropagation();
 			rule.playlist.push("");
 		},
+		deleteMatch: function($event, rule, $index) {
+			$event.preventDefault();
+			$event.stopPropagation();
+			rule.match.splice($index, 1);
+		},
+		deleteSong: function($event, rule, $index) {
+			$event.preventDefault();
+			$event.stopPropagation();
+			rule.playlist.splice($index, 1);
+		},
+		deleteRule: function($event, $index) {
+			$event.preventDefault();
+			$event.stopPropagation();
+			$scope.state.rules.splice($index, 1);
+		},
 		addRule: function($event) {
 			$event.preventDefault();
 			$event.stopPropagation();
@@ -68,7 +83,9 @@ angular
 				"*://*.google.com/*",
 				"*://google.com/*"
 				],
-				playlist: []
+				playlist: [
+				'../../music/elevator.mp3'
+				]
 			});
 		},
 		submit: function($invalid) {
