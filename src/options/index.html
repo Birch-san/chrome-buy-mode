@@ -1,18 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-attr-lang="{{lang}}" ng-app="optionsApp" ng-controller="HtmlCtrl">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<meta name="author" content="Alex Birch">
-
-		<title>Configure Chrome Buy Mode</title>
+		<title ng-bind="::localized('title')"></title>
+		<link rel="stylesheet" type="text/css" href="../css/marx.min.css">
+		<script type="text/javascript" src="../lib/angular.min.js"></script>
+		<script type="text/javascript" src="options.js"></script>
 	</head>
 	<body>
 		<main>
 			<section>
-				<p>Sup</p>
+				<p ng-bind="::localized('sup')"/>
 			</section>
 		</main>
 	</body>
