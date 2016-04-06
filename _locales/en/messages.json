@@ -1,8 +1,14 @@
 {
-  "title": {
+  "productTitle": {
     "message": "Configure Chrome Buy Mode"
   },
-  "sup": {
-    "message": "Sup homies"
+  "productOptions": {
+    "message": "Chrome Buy Mode Options"
+  },
+  "product": {
+    "message": "Chrome Buy Mode"
+  },
+  "playlists": {
+    "message": "Playlists"
   }
 }

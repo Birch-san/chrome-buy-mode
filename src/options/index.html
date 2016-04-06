@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<meta name="author" content="Alex Birch">
-		<title ng-bind="::localized('title')"></title>
+		<title ng-bind="::localized('productTitle')"></title>
 		<link rel="stylesheet" type="text/css" href="../css/marx.min.css">
 		<script type="text/javascript" src="../lib/angular.min.js"></script>
 		<script type="text/javascript" src="options.js"></script>
@@ -14,6 +14,8 @@
 	<body>
 		<main>
 			<section>
+				<h1 ng-bind="::localized('productOptions')"/>
+				<h2 ng-bind="::localized('playlists')"/>
 				<p ng-bind="::localized('sup')"/>
 			</section>
 		</main>
