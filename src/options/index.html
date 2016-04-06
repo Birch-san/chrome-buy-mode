@@ -27,14 +27,14 @@
 						</h3>
 						<label class="capitalize" ng-bind="::localized('matches')"></label>
 						<div ng-repeat="match in rule.match track by $index">
-							<input ng-value="match"></input>
+							<input ng-model="rule.match[$index]"></input>
 						</div>
 						<!-- <div>&nbsp;</div> -->
 						<a class="capitalize" ng-click="addMatch($event, rule)" ng-bind="::localized('addMatch')" href="javascript:void()"></a>
 						<div>&nbsp;</div>
 						<label class="capitalize" ng-bind="::localized('playlist')"></label>
 						<div ng-repeat="song in rule.playlist track by $index">
-							<input ng-value="song"></input>
+							<input ng-model="rule.playlist[$index]"></input>
 						</div>
 						<!-- <div>&nbsp;</div> -->
 						<a class="capitalize" ng-click="addSong($event, rule)" ng-bind="::localized('addSong')" href="javascript:void()"></a>
