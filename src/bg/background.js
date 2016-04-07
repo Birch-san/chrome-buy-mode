@@ -124,8 +124,8 @@ function start() {
 				var audio = rule.audio;
 				cue(audio, (rule.favouriteFirst && rule.playlist[0]) || pickNextSong(rule));
 
-				audio.addEventListener('ended', function() {	
-					cue(pickNextSong());
+				audio.addEventListener('ended', function() {
+					cue(audio, pickNextSong(rule));
 				});
 			}
 		})(state.rules);
