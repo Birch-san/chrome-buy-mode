@@ -47,6 +47,7 @@ angular
 	angular.extend($scope, {
 		loading: true,
 		saving: false,
+		import: "",
 		state: {},
 		serialize: function() {
 			return JSON.stringify($scope.state, null, "  ");
@@ -90,8 +91,30 @@ angular
 				playlistMode: "noShuffle"
 			});
 		},
+		doImport: function($event) {
+			$event.preventDefault();
+			$event.stopPropagation();
+
+			if ($scope.saving) {
+				return;
+			}
+
+			angular.extend($scope, {
+				saving: true
+			});
+
+			chrome.storage.sync.set({
+				'state': $scope.import
+			}, function() {
+				angular.extend($scope, {
+					saving: false,
+					state: JSON.parse($scope.import)
+				});
+				$scope.$apply();
+			})
+		},
 		submit: function($invalid) {
-			if ($invalid) {
+			if ($invalid || $scope.saving) {
 				return;
 			}
 

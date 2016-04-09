@@ -21,3 +21,17 @@
 .header-hyper {
 	font-size: calc(1em / 1.2);
 }
+
+.code {
+	font-family:monospace;
+}
+
+textarea {
+	display: block;
+	width: 300px;
+}
+
+pre {
+	overflow-x: scroll;
+	max-width: 300px;
+}

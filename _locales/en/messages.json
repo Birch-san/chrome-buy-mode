@@ -64,5 +64,11 @@
   },
   "exampleMatch": {
     "message": "*://*.amazon.co.uk/*"
+  },
+  "import": {
+    "message": "import"
+  },
+  "importLabel": {
+    "message": "import JSON configuration"
   }
 }

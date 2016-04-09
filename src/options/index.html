@@ -75,6 +75,14 @@
 			<div>&nbsp;</div>
 			<label class="capitalize" ng-bind="::localized('helpfulPre')"></label><span>:</span>
 			<pre ng-bind="serialize()"></pre>
+			<hr></hr>
+			<div>
+				<label class="capitalize">
+				<span ng-bind="::localized('importLabel')"></span>
+				<textarea class="code" ng-model="import" ng-disabled="saving"></textarea>
+				</label>
+				<input type="button" class="capitalize" ng-value="::localized('import')" ng-disabled="saving" ng-click="doImport($event)"></input>
+			</div>
 		</div>
 	</body>
 </html>	
