@@ -59,18 +59,19 @@ function ensureMusicPlayingIffRequired() {
 		return;
 	}
 
+	function callback(rule, tabs) {
+		if (!alive) {
+			return;
+		}
+		if (tabs.length > 0) {
+			ensurePlaying(rule.audio);
+		} else {
+			ensureNotPlaying(rule.audio);
+		}
+	}
+
 	for (var i=0; i<state.rules.length; i++) {
 		var rule = state.rules[i];
-		function callback(tabs) {
-			if (!alive) {
-				return;
-			}
-			if (tabs.length > 0) {
-				ensurePlaying(rule.audio);
-			} else {
-				ensureNotPlaying(rule.audio);
-			}
-		}
 
 		var queryInfo = {
 			active: true,
@@ -79,7 +80,7 @@ function ensureMusicPlayingIffRequired() {
 			// status: 'complete',
 			url: rule.match
 		};
-		chrome.tabs.query(queryInfo, callback);
+		chrome.tabs.query(queryInfo, callback.bind(callback, rule));
 	}
 }
 
