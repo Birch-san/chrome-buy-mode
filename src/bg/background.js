@@ -1,9 +1,3 @@
-// if you checked "fancy-settings" in extensionizr.com, uncomment this lines
-
-// var settings = new Store("settings", {
-//     "sample_setting": "This is how you use Store.js to remember values"
-// });
-
 var alive = false;
 
 var state;
@@ -23,8 +17,22 @@ function pickRandomSong(rule) {
 	return candidates[Math.floor(Math.random() * candidates.length)];
 }
 
+function pickNonRandomSong(rule) {
+	// assumes no duplicates
+	// indexOf returns -1 if `rule.audio.currentSrc` is not found in the array
+	var currentIx = rule.playlist.indexOf(rule.audio.currentSrc);
+	return rule.playlist[(currentIx+1) % rule.playlist.length];
+}
+
 function pickNextSong(rule) {
-	return pickRandomSong(rule);
+	switch(rule.playlistMode) {
+		case "favouriteFirst":
+		case "shuffle":
+			return pickRandomSong(rule);
+		case "noShuffle":
+		default:
+			return pickNonRandomSong(rule);
+	}
 }
 
 function cue(audio, song) {
@@ -95,26 +103,10 @@ function start() {
 				"playlist":
 				[
 				'../../music/elevator.mp3'
-				]
+				],
+				playlistMode: "noShuffle"
 			}
 			];
-			// {
-			// 	"match": [
-			// 	"*://*.amazon.co.uk/*",
-			//     "*://*.amazon.com/*",
-			//     "*://*.birchlabs.co.uk/*",
-			//     "*://birchlabs.co.uk/*"
-			// 	],
-			// 	"playlist":
-			// 	[
-			// 	'file:///Users/birch/git/chrome-buy-mode/music/1.mp3',
-			// 	'file:///Users/birch/git/chrome-buy-mode/music/2.mp3',
-			// 	'file:///Users/birch/git/chrome-buy-mode/music/3.mp3',
-			// 	'file:///Users/birch/git/chrome-buy-mode/music/4.mp3'
-			// 	],
-			// 	"audio": undefined,
-			// 	"favouriteFirst": true
-			// }
 		}
 
 		(function initRules(rules) {
@@ -122,7 +114,8 @@ function start() {
 				var rule = rules[i];
 				rule.audio = new Audio();
 				var audio = rule.audio;
-				cue(audio, (rule.favouriteFirst && rule.playlist[0]) || pickNextSong(rule));
+				var nextSongPath;
+				cue(audio, (rule.playlistMode === "favouriteFirst" && rule.playlist[0]) || pickNextSong(rule));
 
 				audio.addEventListener('ended', function() {
 					cue(audio, pickNextSong(rule));

@@ -29,7 +29,7 @@
 						<div class="clear-both"></div>
 						<label class="capitalize" ng-bind="::localized('matches')"></label>
 						<div ng-repeat="match in rule.match track by $index">
-							<input class="path-input" ng-model="rule.match[$index]" required></input>
+							<input class="path-input" ng-model="rule.match[$index]" required placeholder="{{::localized('exampleMatch')}}"></input>
 							<a class="capitalize" ng-click="deleteMatch($event, rule, $index)" ng-bind="::localized('deleteMatch')" href="javascript:void()"></a>
 						</div>
 						<!-- <div>&nbsp;</div> -->
@@ -39,13 +39,26 @@
 						<div>&nbsp;</div>
 						<label class="capitalize" ng-bind="::localized('playlist')"></label>
 						<div ng-repeat="song in rule.playlist track by $index">
-							<input type="text" class="path-input" ng-model="rule.playlist[$index]" required></input>
+							<input type="text" class="path-input" ng-model="rule.playlist[$index]" required placeholder="{{::localized('exampleFile')}}"></input>
 							<a class="capitalize" ng-click="deleteSong($event, rule, $index)" ng-bind="::localized('deleteSong')" href="javascript:void()"></a>
 						</div>
 						<!-- <div>&nbsp;</div> -->
 						<div>
 							<a class="capitalize" ng-click="addSong($event, rule)" ng-bind="::localized('addSong')" href="javascript:void()"></a>
 						</div>
+						<div>&nbsp;</div>
+						<label>
+							<input class="radio-input" type="radio" ng-model="rule.playlistMode" value="noShuffle"></input>
+							<span ng-bind="::localized('noShuffle')"></span>
+						</label><br/>
+						<label>
+							<input class="radio-input" type="radio" ng-model="rule.playlistMode" value="shuffle"></input>
+							<span ng-bind="::localized('shuffle')"></span>
+						</label><br/>
+						<label>
+							<input class="radio-input" type="radio" ng-model="rule.playlistMode" value="favouriteFirst"></input>
+							<span ng-bind="::localized('favouriteFirst')"></span>
+						</label><br/>
 					</fieldset>
 					<!-- <hr ng-show="!$last"></hr> -->
 				</div>

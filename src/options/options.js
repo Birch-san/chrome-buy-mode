@@ -30,7 +30,8 @@ angular
 					"playlist":
 					[
 					'../../music/elevator.mp3'
-					]
+					],
+					playlistMode: "noShuffle"
 				}
 				]
 			});
@@ -85,7 +86,8 @@ angular
 				],
 				playlist: [
 				'../../music/elevator.mp3'
-				]
+				],
+				playlistMode: "noShuffle"
 			});
 		},
 		submit: function($invalid) {

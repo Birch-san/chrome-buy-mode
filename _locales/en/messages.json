@@ -49,5 +49,20 @@
   },
   "helpfulPre": {
     "message": "helpful JSON representation"
+  },
+  "shuffle": {
+    "message": "Shuffle playlist order"
+  },
+  "noShuffle": {
+    "message": "Do not shuffle playlist order"
+  },
+  "favouriteFirst": {
+    "message": "Shuffle playlist order after first song finishes"
+  },
+  "exampleFile": {
+    "message": "file:///Users/stan/Music/not stolen/1.mp3"
+  },
+  "exampleMatch": {
+    "message": "*://*.amazon.co.uk/*"
   }
 }
