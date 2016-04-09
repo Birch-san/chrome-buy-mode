@@ -1,5 +1,7 @@
 # Chrome Buy Mode
 
+Install via [https://chrome.google.com/webstore/detail/chrome-buy-mode/amdllfpmhpeodgkkkpgempbdcbdgemec](Chrome Web Store)
+
 ## Purpose
 
 This Chrome extension gives you the power to play appropriate music when you go to websites.
