@@ -110,6 +110,10 @@ function start() {
 			];
 		}
 
+		function cueNextSong(audio, rule) {
+			cue(audio, pickNextSong(rule));
+		}
+
 		(function initRules(rules) {
 			for (var i=0; i<rules.length; i++) {
 				var rule = rules[i];
@@ -118,9 +122,7 @@ function start() {
 				var nextSongPath;
 				cue(audio, (rule.playlistMode === "favouriteFirst" && rule.playlist[0]) || pickNextSong(rule));
 
-				audio.addEventListener('ended', function() {
-					cue(audio, pickNextSong(rule));
-				});
+				audio.addEventListener('ended', cueNextSong.bind(cueNextSong, audio, rule));
 			}
 		})(state.rules);
 
