@@ -24,7 +24,7 @@ The config begins like this:
 		],
 		"playlist":
 		[
-		'../../music/elevator.mp3'
+		"../../music/elevator.mp3"
 		],
 		"playlistMode": "noShuffle"
 	}
