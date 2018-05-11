@@ -1,6 +1,6 @@
 # Chrome Buy Mode
 
-Install via [https://chrome.google.com/webstore/detail/chrome-buy-mode/amdllfpmhpeodgkkkpgempbdcbdgemec](Chrome Web Store)
+Install via [Chrome Web Store](https://chrome.google.com/webstore/detail/chrome-buy-mode/amdllfpmhpeodgkkkpgempbdcbdgemec)
 
 ## Purpose
 
